@@ -20,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::resource('users', UserController::class)->only('index', 'store');
+Route::post('subscrip', [UserController::class, 'subscrip']);
 
 Route::resource('websites', WebSiteController::class)->only('index', 'store');

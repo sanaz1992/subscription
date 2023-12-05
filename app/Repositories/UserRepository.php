@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Subscrip;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,6 +31,14 @@ class UserRepository
             'mobile' => $data['mobile'],
             'email' => $data['email'] ?? null,
             'password' => Hash::make($data['password']),
+        ]);
+    }
+
+    public function subscrip($data)
+    {
+        Subscrip::create([
+            'user_id' => $data['user_id'],
+            'web_site_id' => $data['web_site_id'],
         ]);
     }
 }
