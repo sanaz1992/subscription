@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
@@ -28,4 +29,10 @@ class Post extends Model
             return ENV('APP_URL') . '/uploads/no-image.jpg';
         }
     }
+
+    public function website(): BelongsTo
+    {
+        return $this->belongsTo(WebSite::class,'web_site_id');
+    }
+
 }

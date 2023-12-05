@@ -23,6 +23,11 @@ class PostRepository
         return $posts;
     }
 
+    public function find($id)
+    {
+        return Post::find($id);
+    }
+
     public function store($data)
     {
         if (isset($data['image'])) {
