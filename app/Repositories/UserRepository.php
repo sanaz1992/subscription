@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Subscrip;
 use App\Models\User;
+use App\Models\UserSendEmail;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
@@ -39,6 +40,22 @@ class UserRepository
         Subscrip::create([
             'user_id' => $data['user_id'],
             'web_site_id' => $data['web_site_id'],
+        ]);
+    }
+
+    public function checkSendPost($user, $postId)
+    {
+        $user->loadCount(['send_posts' => function ($q) use ($postId) {
+            $q->where([['post_id', $postId]]);
+        }]);
+        return $user->send_posts_count;
+    }
+
+    public function sendPostForUser($userId, $postId)
+    {
+        UserSendEmail::create([
+            'user_id' => $userId,
+            'post_id' => $postId,
         ]);
     }
 }

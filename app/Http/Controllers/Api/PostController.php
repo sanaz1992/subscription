@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\StoreSendEmailSubscripsRequest;
 use App\Http\Resources\PostResource;
 use App\Jobs\PostCreatedJob;
-use App\Mail\PostCreatedEmail;
+use App\Models\User;
 use App\Repositories\PostRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -23,8 +24,16 @@ class PostController extends Controller
     {
         $post = $postRepository->store($request->all());
         PostCreatedJob::dispatch($post->web_site_id, $post->id);
-        return   $post->load('website.users');
-
         return new PostResource($post);
+    }
+
+    public function sendEmailSubscrips(StoreSendEmailSubscripsRequest $request)
+    {
+        $post = resolve(PostRepository::class)->find($request->post_id);
+        PostCreatedJob::dispatch($post->web_site_id, $post->id);
+        return response()->json([
+            'status' => true,
+            'message' => 'ایمیل برای کاربران ارسال میشود',
+        ], 200);
     }
 }

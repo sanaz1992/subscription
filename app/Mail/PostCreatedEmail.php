@@ -30,7 +30,7 @@ class PostCreatedEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: ' پست جدید در وب سایت قرار گرفت',
+            subject: ' پست ' . $this->post->title . ' در وب سایت قرار گرفت',
         );
     }
 

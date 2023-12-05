@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\PostCreatedEmail;
 use App\Repositories\PostRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -34,7 +35,11 @@ class PostCreatedJob implements ShouldQueue
         $post = resolve(PostRepository::class)->find($this->postId);
         $post->load('website.users');
         foreach ($post->website->users as $user) {
-            Mail::to($user->email)->send(new PostCreatedEmail($post));
+            $sendEmailCount = resolve(UserRepository::class)->checkSendPost($user, $post->id);
+            if (!$sendEmailCount) {
+                resolve(UserRepository::class)->sendPostForUser($user->id, $post->id);
+                Mail::to($user->email)->send(new PostCreatedEmail($post));
+            }
         }
     }
 }
