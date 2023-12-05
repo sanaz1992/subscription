@@ -20,6 +20,7 @@ class PostResource extends JsonResource
             'description' => $this->description,
             'image' => $this->image_address,
             'created_at' => $this->created_at,
+            'website' => $this->website,
         ];
     }
 }
