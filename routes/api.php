@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\WebSiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
+ */
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -21,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('users', UserController::class)->only('index', 'store');
 
+Route::resource('websites', WebSiteController::class)->only('index', 'store');

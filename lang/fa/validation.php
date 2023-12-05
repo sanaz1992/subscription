@@ -193,6 +193,8 @@ return [
         'image' => 'تصویر',
         'parent_id' => 'مرجع',
         'mobile' => 'موبایل',
+        'persian_name' => 'نام فارسی',
+        'url' => 'لینک',
 
     ],
 
