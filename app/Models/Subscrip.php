@@ -12,9 +12,9 @@ class Subscrip extends Model
 
     protected $fillable = ['user_id', 'web_site_id'];
 
-    public function post(): BelongsTo
+    public function website(): BelongsTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(website::class);
     }
 
     public function user(): BelongsTo
