@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WebSiteController;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,5 @@ Route::resource('users', UserController::class)->only('index', 'store');
 Route::post('subscrip', [UserController::class, 'subscrip']);
 
 Route::resource('websites', WebSiteController::class)->only('index', 'store');
+
+Route::resource('posts', PostController::class)->only('index', 'store');
